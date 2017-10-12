@@ -95,3 +95,21 @@ imshow(100 * abs(fftshift(fft2(onde_zoom_squared))));
 
 %%
 % question 3
+nimes = double(imread('nimes.pgm'))/256;
+imshow(nimes);
+daspect([1 1 1]);
+axis on;
+%%
+test = gradn(nimes);
+imshow(test, []);
+daspect([1 1 1]);
+axis on;
+%%
+subplot(121)
+imshow(nimes, []);
+axis on;
+subplot(122)
+imshow(test, []);
+axis on;
+%%
+% tentative pour remedier a l'alising du gradient

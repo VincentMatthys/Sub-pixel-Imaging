@@ -88,6 +88,10 @@ imshow(onde_zoom_squared(1:512, 1:512), [])
 daspect([1 1 1])
 %%
 % Fourier space
-imshow(abs(fftshift(fft2(onde_zoom))));
+fft_onde_zoom = abs(fftshift(fft2(onde_zoom)));
+imshow(fft_onde_zoom(1:512, 1:512));
 %%
 imshow(100 * abs(fftshift(fft2(onde_zoom_squared))));
+
+%%
+% question 3

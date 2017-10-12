@@ -100,8 +100,8 @@ imshow(nimes);
 daspect([1 1 1]);
 axis on;
 %%
-test = gradn(nimes);
-imshow(test, []);
+grad = gradn(nimes);
+imshow(grad, []);
 daspect([1 1 1]);
 axis on;
 %%
@@ -109,7 +109,16 @@ subplot(121)
 imshow(nimes, []);
 axis on;
 subplot(122)
-imshow(test, []);
+imshow(grad, []);
 axis on;
 %%
 % tentative pour remedier a l'alising du gradient
+nimes_zoom = fftzoom(nimes, 2);
+% imshow(nimes_zoom, []);
+grad_zoom = gradn(nimes_zoom);
+subplot(121)
+imshow(nimes_zoom, []);
+axis on;
+subplot(122)
+imshow(grad_zoom, []);
+axis on;

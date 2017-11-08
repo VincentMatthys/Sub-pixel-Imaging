@@ -1,13 +1,12 @@
 \documentclass[12pt,a4paper,onecolumn]{article}
 \input{packages}
+\input{macros}
 
 % ------------------------ General informations --------------------------------
 \title{Matrice Fondamentale}
 \author{Vincent Matthys}
 \graphicspath{{images/}}
 % ------------------------------------------------------------------------------
-
-% \renewcommand{\thesubsection}{\alph{subsection}}
 
 
 \begin{document}
@@ -33,13 +32,35 @@
 	\vspace{1.5cm}
 \end{center}
 
-\section{Objectifs}
-Le programme permet à l'utilisateur :
-\begin{enumerate}
-	\item de déterminer la matrice fondamentale à partir de deux images d'une même scène sans connaissance au préalable des paramètres internes de l'appareil
-	\item déterminer les \textit{SIFT inliers}
-	\item de tracer la ligne épipolaire associé à un point sélectionné par l'utilisateur dans l'autre image
-\end{enumerate}
+\section{Exercice 6}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[height = 0.25\textheight]{6_5}
+		\subcaption{Pour \(N = 5\)}
+		\label{fig_6_5}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[height = 0.25\textheight]{6_10}
+		\subcaption{Pour \(N = 10\)}
+		\label{fig_6_10}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[height = 0.25\textheight]{6_50}
+		\subcaption{Pour \(N = 50\)}
+		\label{fig_6_50}
+	\end{subfigure}
+	\caption{Représentation graphique de la convergence du \(sincd_N\) et du \(sinc\), sur \([-N/2, N/2]\)}
+	\label{fig_6}
+\end{figure}
+
+En figure~\ref{fig_6} sont représentés le \(sinc\) et le \(sincd_N\), pour différentes valeurs de \(N\) pour \(x \in[-N/2, N/2]\). On constate que, pour chaque valeur entière, on a bien égalité, et que, pour N assez grand, les différences sont minimes.
+
+\section{Exercice 7}
 
 
 \end{document}

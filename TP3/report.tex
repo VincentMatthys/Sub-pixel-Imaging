@@ -62,5 +62,94 @@ En figure~\ref{fig_6} sont représentés le \(sinc\) et le \(sincd_N\), pour dif
 
 \section{Exercice 7}
 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\begin{lstlisting}[frame = none, numbers = none]
+		u = double(imread('lena.pgm'));
+		\end{lstlisting}
+		\includegraphics[scale = 1, height = 0.3\textheight]{lena.png}
+		\subcaption{Image lena}
+	\end{subfigure}
+	\vspace{2cm}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\begin{lstlisting}[frame=none, numbers = none]
+		f = fft2(u);
+		imshow(f, 'InitialMagnification', 100);
+		\end{lstlisting}
+		\includegraphics[scale = 1, height = 0.3\textheight]{7_1}
+		\subcaption{Partie réelle de la transformée de Fourier de lena}
+	\end{subfigure}
+	\caption{Partie réelle de la transformée de Fourier de Lena}
+	\label{7_1}
+\end{figure}
+
+En figure~\ref{7_1}, on demande à Matlab d'afficher en niveaux de gris une matrice complexe, résultant en un message d'erreur \textit{Warning: Displaying real part of complex input.}. On observe donc uniquement la partie réelle de la transformée de Fourier.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\begin{lstlisting}[frame = none, numbers = none]
+		imshow(abs(f));
+		\end{lstlisting}
+		\includegraphics[scale = 1, height = 0.3\textheight]{7_21}
+		\subcaption{Sans l'option [] de imshow}
+		\label{7_21}
+	\end{subfigure}
+	\vspace{2cm}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\begin{lstlisting}[frame=none, numbers = none]
+		imshow(abs(f),[]);
+		\end{lstlisting}
+		\includegraphics[scale = 1, height = 0.3\textheight]{7_22}
+		\subcaption{Avec l'option [ ] de imshow}
+		\label{7_22}
+	\end{subfigure}
+	\caption{Représentations du module de la transformée de Fourier}
+	\label{7_2}
+\end{figure}
+
+En figure~\ref{7_2}, la commande~\ref{7_21} est équivalent à :
+\begin{lstlisting}[numbers = none]
+imshow(abs(f) > 1);
+\end{lstlisting}
+et on n'obtient que des pixels blancs, puisque imshow, quand on lui présente un double (ce qui est le type de abs(f)), représente en noir les valeurs à 0, en blanc les valeurs à 1, et en niveaux de gris les valeurs entre ces bornes. Or, on vérifie que abs(1) > 1 ne contient que des 1. En revance, avec l'option [ ], on rescale \(abs(f) \in [0, 1]\), avec la plus grande valeur en blanc, et la plus faible en noire. Or, la répartition des valeurs est très asymétrique, et on ne représente quasiment que du noir. On peut s'en convaincre en tracant le logarithme de cette image, qui donne la figure~\ref{7_33}.
+
+\begin{figure}[H]
+	\centering
+	\begin{lstlisting}[frame=none, numbers = none]
+	imshow(log(abs(f)),[]);
+	\end{lstlisting}
+	\includegraphics[height = 0.3\textheight]{7_33}
+	\caption{Logarithme de la figure~\ref{7_22}}
+	\label{7_33}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\begin{lstlisting}[frame = none, numbers = none]
+		imshow(normsat(abs(f),1));
+		\end{lstlisting}
+		\includegraphics[scale = 1, height = 0.3\textheight]{7_31}
+		\subcaption{Image lena}
+	\end{subfigure}
+	\vspace{2cm}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\begin{lstlisting}[frame=none, numbers = none]
+		imshow(normsat(fftshift(abs(f)),1));
+		\end{lstlisting}
+		\includegraphics[scale = 1, height = 0.3\textheight]{7_32}
+		\subcaption{Partie réelle de la transformée de Fourier de lena}
+	\end{subfigure}
+	\caption{Partie réelle de la transformée de Fourier de Lena}
+	\label{7_3}
+\end{figure}
 
 \end{document}

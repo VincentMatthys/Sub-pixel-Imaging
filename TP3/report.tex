@@ -129,6 +129,8 @@ et on n'obtient que des pixels blancs, puisque imshow, quand on lui présente un
 	\label{7_33}
 \end{figure}
 
+En figure~\ref{7_3}, on sature \(1~\%\) des valeurs extremales du module de la transformée, et on redistribue linéairement les valeurs restantes sur tous les niveaux de gris. C'est ce que fait la fonction \textit{normsat}. La fonction \textit{fftshift} permet de centrer l'origine des fréquences, passant du coin supérieur gauche en figure~\ref{7_31} au centre en figure~\ref{7_32}.
+
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
@@ -137,7 +139,8 @@ et on n'obtient que des pixels blancs, puisque imshow, quand on lui présente un
 		imshow(normsat(abs(f),1));
 		\end{lstlisting}
 		\includegraphics[scale = 1, height = 0.3\textheight]{7_31}
-		\subcaption{Image lena}
+		\subcaption{Avec l'origine des fréquences en haut à gauche de l'image}
+		\label{7_31}
 	\end{subfigure}
 	\vspace{2cm}
 	\begin{subfigure}[b]{\textwidth}
@@ -146,10 +149,60 @@ et on n'obtient que des pixels blancs, puisque imshow, quand on lui présente un
 		imshow(normsat(fftshift(abs(f)),1));
 		\end{lstlisting}
 		\includegraphics[scale = 1, height = 0.3\textheight]{7_32}
-		\subcaption{Partie réelle de la transformée de Fourier de lena}
+		\subcaption{Avec l'origine des fréquences au milieu de l'image}
+		\label{7_32}
 	\end{subfigure}
-	\caption{Partie réelle de la transformée de Fourier de Lena}
+	\caption{Visualisation du module de la transformée de Fourier après saturation à \(1~\%\) des valeurs extremales et mapping linéaire des valeurs restantes en niveau de gris}
 	\label{7_3}
 \end{figure}
+
+En figure~\ref{7_44} sont présentés les commandes et leur résultat pour visualier efficacement différentes parties d'une transformée de Fourier.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\begin{lstlisting}[frame = none, numbers = none]
+imshow(log(1 +abs(real(fftshift(f)))), [])
+		\end{lstlisting}
+		\includegraphics[scale = 1, width = \textwidth]{7_41}
+		\subcaption{Logarithme de la partie réelle}
+		\label{7_41}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\begin{lstlisting}[frame = none, numbers = none]
+imshow(log(1 +abs(imag(fftshift(f)))), [])
+		\end{lstlisting}
+		\includegraphics[scale = 1, width = \textwidth]{7_42}
+		\subcaption{Logarithme de la partie imaginaire}
+		\label{7_42}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\begin{lstlisting}[frame = none, numbers = none]
+imshow(angle(fftshift(f)) + pi, [])
+		\end{lstlisting}
+		\includegraphics[scale = 1, width = \textwidth]{7_43}
+		\subcaption{Phase}
+		\label{7_43}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\begin{lstlisting}[frame = none, numbers = none]
+imshow(log(1 +abs(fftshift(f))), [])
+		\end{lstlisting}
+		\includegraphics[scale = 1, width = \textwidth]{7_44}
+		\subcaption{Logarithme du module}
+		\label{7_44}
+	\end{subfigure}
+	\caption{Visualisation des divers parties d'une transformée de Fourier}
+	\label{}
+\end{figure}
+
+\clearpage
+
+\section{Exercice 8}
+
 
 \end{document}

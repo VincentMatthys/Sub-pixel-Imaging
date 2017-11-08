@@ -1,0 +1,45 @@
+\documentclass[12pt,a4paper,onecolumn]{article}
+\input{packages}
+
+% ------------------------ General informations --------------------------------
+\title{Matrice Fondamentale}
+\author{Vincent Matthys}
+\graphicspath{{images/}}
+% ------------------------------------------------------------------------------
+
+% \renewcommand{\thesubsection}{\alph{subsection}}
+
+
+\begin{document}
+
+\begin{tabularx}{0.9\textwidth}{@{} l X r @{} }
+	{\textsc{Master MVA}}               &  & \textsc{TP2}       \\
+	\textsc{Sub-pixel image processing} &  & {ENS Paris Saclay} \\
+\end{tabularx}
+\vspace{1.5cm}
+\begin{center}
+
+	\rule[11pt]{5cm}{0.5pt}
+
+	\textbf{\LARGE \textsc{Compte-rendu TP3}}
+	\vspace{0.5cm}
+
+	Vincent Matthys
+
+	vincent.matthys@ens-paris-saclay.fr
+
+	\rule{5cm}{0.5pt}
+
+	\vspace{1.5cm}
+\end{center}
+
+\section{Objectifs}
+Le programme permet à l'utilisateur :
+\begin{enumerate}
+	\item de déterminer la matrice fondamentale à partir de deux images d'une même scène sans connaissance au préalable des paramètres internes de l'appareil
+	\item déterminer les \textit{SIFT inliers}
+	\item de tracer la ligne épipolaire associé à un point sélectionné par l'utilisateur dans l'autre image
+\end{enumerate}
+
+
+\end{document}

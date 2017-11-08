@@ -204,5 +204,22 @@ imshow(log(1 +abs(fftshift(f))), [])
 
 \section{Exercice 8}
 
+\subsection{Question 1}
+
+\begin{equation}
+	\begin{split}
+		U &= \sum_{0\le k \le M-1,~0 \le l \le N-1}u(k,l)\sum_{m,n\in \mathbb{Z}}\delta_{(k + mM, l + nN)}\\
+		\widehat{U}(\bm{\xi}) &= \sum_{0\le k \le M-1,~0 \le l \le N-1}u(k,l) \int_{\mathbb{R}^2}\sum_{m,n\in \mathbb{Z}}\delta_{(k + mM, l + nN)}(x, y)e^{-ix\xi_x - iy\xi_y}dxdy \\
+		\widehat{U}(\bm{\xi}) &= \sum_{0\le k \le M-1,~0 \le l \le N-1}u(k,l) \int_{\mathbb{R}^2}\sum_{m,n\in \mathbb{Z}}\delta_{(mM, nN)}(x - k, y - l)e^{-ix\xi_x - iy\xi_y}dxdy \\
+		\widehat{U}(\bm{\xi}) &= \sum_{0\le k \le M-1,~0 \le l \le N-1}u(k,l) e^{-i(k\xi_x + l\xi_y)}\int_{\mathbb{R}^2}\sum_{m,n\in \mathbb{Z}}\delta_{(mM, nN)}(x, y)e^{-ix\xi_x - iy\xi_y}dxdy \\
+		\widehat{U}(\bm{\xi}) &= \sum_{0\le k \le M-1,~0 \le l \le N-1}u(k,l) e^{-i(k\xi_x + l\xi_y)}\widehat{\Pi_{M, N}}(\bm{\xi}) \\
+		\widehat{U}(\bm{\xi}) &= \sum_{0\le k \le M-1,~0 \le l \le N-1}u(k,l) e^{-i(k\xi_x + l\xi_y)}\frac{2\pi}{M}\frac{2\pi}{N}\Pi_{\frac{2\pi}{M}, \frac{2\pi}{N}}(\bm{\xi}) \\
+		\widehat{U}(\bm{\xi}) &= \frac{2\pi}{M}\frac{2\pi}{N}\sum_{p,q\in \mathbb{Z}}\delta_{\frac{2\pi}{M}, \frac{2\pi}{N}}(\bm{\xi})\sum_{0\le k \le M-1,~0 \le l \le N-1}u(k,l) e^{-i(2\pi pk/M + 2\pi lq/N)}\\
+		\widehat{U}(\bm{\xi}) &= \frac{2\pi}{M}\frac{2\pi}{N}\sum_{p,q\in \mathbb{Z}}\widehat{u}(p, q) \delta_{\frac{2\pi}{M}, \frac{2\pi}{N}}(\bm{\xi})\\
+	\end{split}
+	\label{eq_8_1}
+\end{equation}
+
+La relation étable en~\eqref{eq_8_1} montre que la tranformée de fourier discrète agit comme si le signal initial était déjà périodique, puisque les coefficients de Fourier sont ceux du signal périodisé.
 
 \end{document}

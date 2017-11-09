@@ -222,4 +222,45 @@ imshow(log(1 +abs(fftshift(f))), [])
 
 La relation étable en~\eqref{eq_8_1} montre que la tranformée de fourier discrète agit comme si le signal initial était déjà périodique, puisque les coefficients de Fourier sont ceux du signal périodisé.
 
+\subsection{Question 2}
+
+\begin{equation}
+	\begin{split}
+		\widehat{u}'(p, q) &= \sum_{k = 0}^{M - 1} \times \sum_{l = 0}^{N - 1}e^{-2i\pi p/M}e^{-2i\pi q/N}u'(k, l) \\
+		&= \sum_{k = 0}^{M - 1} \times \sum_{l = 0}^{N - 1}e^{-2i\pi pk/M}e^{-2i\pi ql/N}u'(k, l)\\
+		&= e^{-2i\pi p/M}e^{-2i\pi q/N}u'(k, l) \\
+		&= e^{-2i\pi p/M}e^{-2i\pi ql_0/N}u'(k, l)
+	\end{split}
+	\label{eq_8_2}
+\end{equation}
+
+
+\section{Exercice 9}
+
+L'interpolée de Shannon \(v(x,y)\) en fonction de \(\widehat{u}\) s'écrit :
+
+\begin{equation}
+	v(x,y) = \frac{1}{MN}\sum_{\mathclap{{|\alpha| \le M/2, |\beta| \le N/2, (p,q) \in \mathbb{Z}}}}\epsilon_M(\alpha)\epsilon_N(\beta)\widehat{u}(\alpha, \beta)  e^{2i\pi(\frac{\alpha x}{M} + \frac{\beta y}{N})}
+\end{equation}
+
+avec \(\epsilon_N(p) = 0.5\) si \(|p| = N/2\), donc dans le cas N pair, et 0 sinon
+
+Montrons que :
+\begin{equation}
+	w(x,y) = \Re\left(\frac{1}{MN}\sum_{\substack{-M/2 \le \alpha < M/2\\ -N/2 \le \beta < N/2}} \widehat{u}(\alpha, \beta) e^{2i\pi(\frac{\alpha x}{M} + \frac{\beta y}{N})} \right)
+\end{equation}
+définit une interpolation exacte de \(u\).
+En effet, on a, pour \((k,l) \in \mathbb{Z}\)
+
+\begin{equation}
+	\begin{split}
+		w(k,l) &= \Re\left(\frac{1}{MN}\sum_{\substack{-M/2 \le \alpha < M/2\\ -N/2 \le \beta < N/2}}  \widehat{u}(\alpha, \beta) \exp\left(2i\pi(\frac{\alpha k}{M} + \frac{\beta l}{N})\right) \right) \\
+		&= \Re\left(\frac{1}{MN}\sum_{\substack{-M/2 \le \alpha < M/2\\ -N/2 \le \beta < N/2}}  \left( \sum_{p, q = 0}^{M-1, N-1}u(p, q)\exp\left(-2i\pi(\frac{\alpha p}{M} + \frac{\beta q}{N})\right)\right) \exp\left(2i\pi(\frac{\alpha k}{M} + \frac{\beta l}{N})\right) \right)\\
+		&= \Re\left(\frac{1}{MN} \sum_{p, q = 0}^{M-1, N-1}u(p, q) \left( \sum_{\substack{-M/2 \le \alpha < M/2\\ -N/2 \le \beta < N/2}} \exp\left(2i\pi(\alpha \frac{k - p}{M} + \beta\frac{l-q}{N})\right)\right)\right)\\
+		&= \Re\left(\frac{1}{MN} \sum_{p, q = 0}^{M-1, N-1}u(p, q) M\delta(k-p)N\delta(l-q)\right)\\
+		&= u(k,l)
+	\end{split}
+\end{equation}
+
+
 \end{document}

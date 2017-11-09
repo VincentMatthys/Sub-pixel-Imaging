@@ -37,16 +37,19 @@ v = fshift(u,-30,-30);
 figure();imshow(v,[]);
 % v = fshift(u,-300,-300);
 % figure();imshow(v,[]);
+imshow([u, v], []);
 %% Transformée de Fourier en module
 % de u
 imshow(log(1 + abs(fftshift(fft2(u)))), [])
 % de v
 figure ; imshow(log(1 + abs(fftshift(fft2(v)))), [])
+imshow([log(1 + abs(fftshift(fft2(u)))), log(1 + abs(fftshift(fft2(v))))], []);
 %% Transformée de Fourier en phase
 % de u
 imshow(angle(fftshift(fft2(u))), [])
 % de v
 figure ; imshow(angle(fftshift(fft2(v))), [])
+% imshow([angle(fftshift(fft2(u))), angle(fftshift(fft2(v)))], []);
 
 % -------------------------------------------------------------------------
 %% Exercice 10 : Synthèse de microtextures
@@ -143,3 +146,38 @@ e = double(imread('Weave.tiff'));
 % pe = perdecomp(e);
 re2 = randphase(e);
 imshow([e, re2], []);
+%% question 3
+obj = double(imread('texture.pgm'));
+fft_obj = log(1 + abs(fftshift(fft2(obj))));
+% transformée de Fourier de l'objectif
+figure; imshow(fft_obj, []);
+% imshow(obj, []);
+
+%%
+n = 512; I = -n/2:-n/2+n-1;
+[X,Y] = meshgrid(I,I);
+R = sqrt(X.^2+Y.^2);
+u = (R<30);
+% imshow(u);
+
+
+% transformée de fourier
+% imshow(log(1 + abs(fftshift(fft2(u)))), [], 'XData', -256:255, 'YData', -256:255);
+
+% image synthétisée
+imshow([u, randphase(u)],[]);
+
+%% Ellipse
+n = 512; I = -n/2:-n/2+n-1;
+[X,Y] = meshgrid(I,I);
+a = 5;
+b = 5;
+theta = 0.02 * pi;
+E =((X.*cos(theta) - Y.*sin(theta))./a).^2 + (X.*sin(theta) + Y.*cos(theta)./b).^2;
+u = (E<30);
+imshow(u);
+
+%% transformée de fourier
+imshow(log(1 + abs(fftshift(fft2(u)))), [], 'XData', -250:249, 'YData', -150:149);
+%% image synthétisée
+imshow([u, randphase(u)],[]);

@@ -27,7 +27,9 @@ imshow(angle(fftshift(f)), [])
 % du module
 imshow(log(1 + abs(fftshift(f))), [])
 
+% -------------------------------------------------------------------------
 %% Exercice 8 : Periodisation implicite de la transformee de Fourier discrete
+% -------------------------------------------------------------------------
 u = double(imread('lena.pgm'));
 imshow(u,[]);
 v = fshift(u,-30,-30);
@@ -44,3 +46,14 @@ figure ; imshow(log(1 + abs(fftshift(fft2(v)))), [])
 imshow(angle(fftshift(fft2(u))), [])
 % de v
 figure ; imshow(angle(fftshift(fft2(v))), [])
+
+% -------------------------------------------------------------------------
+%% Exercice 10 : Synthèse de microtextures
+% -------------------------------------------------------------------------
+a = double(imread('bouc.pgm'));
+b = double(imread('baobab2.pgm'));
+imshow(b, [])
+
+[c,d] = exchange_phase(a, b);
+
+imshow(d, []);

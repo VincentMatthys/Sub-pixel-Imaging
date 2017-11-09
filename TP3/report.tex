@@ -266,7 +266,97 @@ En effet, on a, pour \((k,l) \in \mathbb{Z}\)
 
 \subsection{Question 1}
 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[height = 0.30\textheight]{10_1_11}
+		\subcaption{Images initiales}
+		\label{10_1_11}
+	\end{subfigure}
+	\vspace{2cm}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[height = 0.30\textheight]{10_1_12}
+		\subcaption{Images dont les phases ont été échangées}
+		\label{10_1_12}
+	\end{subfigure}
+	\caption{Echange de phase entre \textit{room.pgm} et \textit{saturn.pgm}}
+	\label{10_1}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[height = 0.30\textheight]{10_1_21}
+		\subcaption{Images initiales}
+		\label{10_1_21}
+	\end{subfigure}
+	\vspace{2cm}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[height = 0.30\textheight]{10_1_22}
+		\subcaption{Images dont les phases ont été échangées}
+		\label{10_1_22}
+	\end{subfigure}
+	\caption{Echange de phase entre \textit{room.pgm} et \textit{lena.pgm}}
+	\label{10_2}
+\end{figure}
+
+Deux exemples sont présentés en figures~\ref{10_1}~\ref{10_2}. On constate que toute l'information n'est pas contenue uniquement dans le module de la transformée de Fourier, puisqu'on appercoit, avec le module de \textit{saturne} et la phase de \textit{room}, les rayures du coussin, ainsi que la forme de la bibliothèque. De la même façon, on apperçoit aussi lena dans l'image où on garde le module de \textit{room} et on ajoute la phase de \textit{lena}. En revanche, on semble conserver mieux les objets quand on garde le module de la transformée de Fourier.
+
+
 \subsection{Question 2}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[height = 0.30\textheight]{10_1_21}
+		\subcaption{Images initiales}
+		\label{10_1_21}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[height = 0.30\textheight]{10_1_22}
+		\subcaption{Images dont les phases ont été échangées}
+		\label{10_1_22}
+	\end{subfigure}
+	\caption{Echange de phase entre \textit{room.pgm} et \textit{lena.pgm}}
+	\label{10_2}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[height = 0.20\textheight]{10_2_lena}
+		\subcaption{A partir de \textit{lena}}
+		\label{10_2_lena}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[height = 0.20\textheight]{10_2_bulles}
+		\subcaption{A partir de bulles de plastique}
+		\label{10_2_bulles}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[height = 0.20\textheight]{10_2_tissu}
+		\subcaption{A partir d'un tissu avec des motifs en chevrons}
+		\label{10_2_tissu}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[height = 0.20\textheight]{10_2_noise}
+		\subcaption{A partir de bruit blanc gaussien}
+		\label{10_2_tissu}
+	\end{subfigure}
+	\caption{Synthèse de texture à partir de la composante périodique}
+	\label{10_2_textures}
+\end{figure}
+
 
 \subsection{Question 3}
 

@@ -313,24 +313,6 @@ Deux exemples sont présentés en figures~\ref{10_1}~\ref{10_2}. On constate que
 	\centering
 	\begin{subfigure}[b]{\textwidth}
 		\centering
-		\includegraphics[height = 0.30\textheight]{10_1_21}
-		\subcaption{Images initiales}
-		\label{10_1_21}
-	\end{subfigure}
-	\begin{subfigure}[b]{\textwidth}
-		\centering
-		\includegraphics[height = 0.30\textheight]{10_1_22}
-		\subcaption{Images dont les phases ont été échangées}
-		\label{10_1_22}
-	\end{subfigure}
-	\caption{Echange de phase entre \textit{room.pgm} et \textit{lena.pgm}}
-	\label{10_2}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[b]{\textwidth}
-		\centering
 		\includegraphics[height = 0.20\textheight]{10_2_lena}
 		\subcaption{A partir de \textit{lena}}
 		\label{10_2_lena}
@@ -351,12 +333,34 @@ Deux exemples sont présentés en figures~\ref{10_1}~\ref{10_2}. On constate que
 		\centering
 		\includegraphics[height = 0.20\textheight]{10_2_noise}
 		\subcaption{A partir de bruit blanc gaussien}
-		\label{10_2_tissu}
+		\label{10_2_noise}
 	\end{subfigure}
-	\caption{Synthèse de texture à partir de la composante périodique}
+	\caption{Synthèse de texture à partir de la composante périodique : sur la colonne de gauche, l'image originale, sur la colonne de droite : l'image synthétisée}
 	\label{10_2_textures}
 \end{figure}
 
+En figure~\ref{10_2_textures} sont présentées les synthèses d'images à phase aléatoire obtenues a partir d'images d'objets, en figure~\ref{10_2_lena}, et d'images de textures en figures~\ref{10_2_bulles}~\ref{10_2_tissu}~\ref{10_2_noise}. On constate que les microtextures sont celles le mieux reproduites, et c'était attendu car l'information spatiale contenue dans la phase est perdue à grande échelle par le fait de rendre la phase aléatoire. En particulier, en figure~\ref{10_2_textures}, on constate que les images synthétisées sont d'autant plus vraisemblables que le motif de texture initial est fin, avec pour limite le bruit blanc gaussien en figure~\ref{10_2_noise}.
+
+En travaillant directement avec l'image, sans passer par sa composante périodique, on constate que près des bords (verticaux) de l'image, on retrouve majoritairement l'information de l'image initiale, comme observé en figure~\ref{10_2_aper}. Cela s'explique car la composante continue tue l'énergie le long des axes de la transformée de Fourier, qui n'est plus tuée si on ne considère plus uniquement cette composante continue. Ainsi, l'énergie du module de la transformée de Fourier prédomine toujours dans l'image synthétisée, comme on peut le constater dans la visualisation de la différence des transformée de Fourier de la composante périodique et de l'image initiale, présentée en figure~\ref{10_2_aper_fft}
+
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width = 0.9\textwidth]{10_2_tissu_aper}
+		\subcaption{A partir de bruit blanc gaussien}
+		\label{10_2_aper_image}
+	\end{subfigure}
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width = 0.5\textwidth]{10_2_tissu_aper_fft}
+		\subcaption{Tranformée de Fourier de l'image synthétisée à partir de la différence de la composante périodique et de l'image synthétisée à partir de l'image brute}
+		\label{10_2_aper_fft}
+	\end{subfigure}
+	\caption{Synthèse de texture à partir de l'image initiale de la figure~\ref{10_2_tissu} sans extraire la composante continue}
+	\label{10_2_aper}
+\end{figure}
 
 \subsection{Question 3}
 

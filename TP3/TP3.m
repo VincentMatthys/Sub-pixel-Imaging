@@ -138,8 +138,8 @@ e = double(imread('noise.png'));
 re = randphase(e);
 imshow([e, re], []);
 
-%% image de départ lena
+%% image de départ texture
 e = double(imread('Weave.tiff'));
 % pe = perdecomp(e);
-re = randphase(e);
-imshow([e, re], []);
+re2 = randphase(e);
+imshow([e, re2], []);

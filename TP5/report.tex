@@ -101,20 +101,67 @@ On peut alors discrétiser pour obtenir \(\hat{w}\), zoom d'un facteur 2 par int
 	\label{zoom_shannon}
 \end{equation}
 
-Ce qui correspond à concentrer la transformée de Fourier dans le demi-carré, et à mettre à 0 les coefficients tout autour. Ce qui est bien différent du zoom par interpolée linéaire, obtenu en~\eqref{zoom_lin}, où on concentre la transformée de Fourier par 2 mais en modulant par un facteur oscillant entre 1 et 2.
+Ce qui correspond à un zoom par 0-padding. Ce qui est bien différent du zoom par interpolée linéaire, obtenu en~\eqref{zoom_lin}, où la transformée de Fourier est modulée par un facteur \(1 + \cos(\xi)\).
 
 \subsection{Zoom d'un facteur 2 d'une image discrète}
 
+\textit{Non réussi}
 
-
-
+% Appelant \(\tilde{u}\) l'interpolée bilinéaire de \(v\), \(\forall (k,l) \in \mathbb{Z}^2\) :
+% \begin{equation}
+% 	\begin{split}
+% 		v[2k,2l] &=  \tilde{u}\left(\frac{2k}{2}, \frac{2l}{2}\right) = u[k, l]\\
+% 		v[2k + 1, 2l] &=  \tilde{u}\left(\frac{2k + 1}{2}, \frac{2l}{2}\right) = \frac{u[k + 1, l] + u[k, l]}{2}\\
+% 		v[2k, 2l + 1] &=  \tilde{u}\left(\frac{2k}{2}, \frac{2l + 1}{2}\right) = \frac{u[k, l] + u[k, l + 1]}{2}\\
+% 		v[2k + 1, 2l + 1] &=  \tilde{u}\left(\frac{2k + 1}{2}, \frac{2l}{2}\right) = \frac{u[k + 1, l] + u[k, l]}{2}\\
+% 	\end{split}
+% \end{equation}
 
 \setcounter{section}{16}
 \section{Exerice 17}
 
-Pour l'image \textit{crop\_bouc.pgm}, on constate que tous les zoom par interpolation autre que plus proche voisins donne des phénomènes de repliement
+Pour l'image \textit{crop\_bouc.pgm}, on constate que tous les zoom par interpolation autre que plus proche voisins donne des phénomènes de repliement de spectre, avec notamment une inversion à 90 degrés des tuyaux le long des bords de l'image aggrandie, comme on peut le constater en bas de l'image en figure~\ref{fig_bouc_3}. Ceci est valable quelque soit l'ordre de l'interpolation utilisée. A l'inverse, même si le résultat est moins plaisant à l'oeil, on ne constate pas ce défaut en figure~\ref{fig_bouc_nn}, que nous qualifierons donc de meilleure, car ne présentant pas ce défaut.
 
-En figure~\refeq{fig_ff_cam} est visualisé le module de la transformée de Fourier de l'image cameraman en entier.
+\begin{figure}[H]
+	\centering
+	\includegraphics[height = 0.4\textheight]{bouc_3}
+	\caption{Zoom par interpolée de spline 3 de l'image bouc}
+	\label{fig_bouc_3}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[height = 0.4\textheight]{bouc_nn}
+	\caption{Zoom par interpolée des plus proches voisins de l'image bouc}
+	\label{fig_bouc_nn}
+\end{figure}
+
+En figure~\refeq{fig_bouc_ff} est visualisé le module de la transformée de Fourier de l'image cameraman en entier. On peut constater le phénomène d'alias présent et observé, provenant de la deuxième croix oblique, lorsqu'on sur-échantillonne ce spectre. Les conditions du théorème de Shannon n'étant plus vérifiées l'image est aliasée.
+\begin{figure}[H]
+	\centering
+	\includegraphics[height = 0.4\textheight]{bouc_ff}
+	\caption{Transformée de Fourier du bouc entier}
+	\label{fig_bouc_ff}
+\end{figure}
+
+
+Pour l'image \textit{crop\_cameran.pgm}, on ne constate aucun effet notable de repliement de spectre lors du zoom, et ce pour toutes les méthodes d'interpolation. On préférera alors une interpolée d'ordre maximale . Ceci est valable quelque soit l'ordre de l'interpolation utilisée. En revanche, on constate un défaut de ringing d'autant plus important que l'ordre d'interpolation est grande. On préferera donc prendre une interpolée spline d'ordre 3, dont le zoom résultant est présenté en figure~\ref{fig_cam_3}, faible, présentant le meilleur compromis entre le phénomène de ringing et le respect de la géométrie de l'image. On peut même envisager de prendre le résultat de l'interpolée linéaire, présenté en figure~\ref{fig_cam_lin}, d'odre encore inférieure, limitant ce phénomène. Le prix à payer étant le non recolllement des dérivées des lignes de niveau de l'image.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[height = 0.4\textheight]{cam_3}
+	\caption{Zoom par interpolée spline d'ordre 3 de l'image cameraman}
+	\label{fig_cam_3}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[height = 0.4\textheight]{cam_lin}
+	\caption{Zoom par interpolée linéaire de l'image cameraman}
+	\label{fig_cam_lin}
+\end{figure}
+
+En figure~\refeq{fig_ff_cam} est visualisé le module de la transformée de Fourier de l'image cameraman en entier. On constate, contraitement au spectre de bouc, que l'intensité décroit assez vite avec la distance au centre, limitant les phénomène d'aliasing lors du sur-échantillonnage.
 \begin{figure}[H]
 	\centering
 	\includegraphics[height = 0.4\textheight]{cam_ff}
@@ -122,12 +169,6 @@ En figure~\refeq{fig_ff_cam} est visualisé le module de la transformée de Four
 	\label{fig_ff_cam}
 \end{figure}
 
-En figure~\refeq{fig_bouc_ff} est visualisé le module de la transformée de Fourier de l'image cameraman en entier. On peut constater
-\begin{figure}[H]
-	\centering
-	\includegraphics[height = 0.4\textheight]{bouc_ff}
-	\caption{Transformée de Fourier du bouc entier}
-	\label{fig_bouc_ff}
-\end{figure}
+
 
 \end{document}

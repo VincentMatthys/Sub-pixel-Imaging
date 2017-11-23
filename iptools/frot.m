@@ -57,12 +57,14 @@ function v = frot(u,theta,order,x0,y0)
     n1 = 1-n2;
   end
   % add (symmetrical) borders to avoid undefined coordinates
-  supx1 = max(0,1-min(iX(:)))-n1;
-  supx2 = max(0,max(iX(:))-nx)+n2;
+  iX = iX(:);
+  iY = iY(:);
+  supx1 = max(0,1-min(iX))-n1;
+  supx2 = max(0,max(iX)-nx)+n2;
   u = [u(:,1+supx1:-1:2),u,u(:,nx-1:-1:nx-supx2)];
   iX = iX + supx1;
-  supy1 = max(0,1-min(iY(:)))-n1;
-  supy2 = max(0,max(iY(:))-ny)+n2;
+  supy1 = max(0,1-min(iY))-n1;
+  supy2 = max(0,max(iY)-ny)+n2;
   u = [u(1+supy1:-1:2,:);u;u(ny-1:-1:ny-supy2,:)];
   iY = iY + supy1;
   if order==0 % nearest neighbor interpolation
@@ -84,21 +86,21 @@ function v = frot(u,theta,order,x0,y0)
 
 % coefficients of piecewise polynomial bicubic Keys function
 function c = mat_coeff_keys(a)
-  c = [0,0,a,-a;0,-a,2*a+3,-(a+2);1,0,-a-3,a+2;0,a,-2*a,a]
+  c = [0,0,a,-a;0,-a,2*a+3,-(a+2);1,0,-a-3,a+2;0,a,-2*a,a];
 
 
 % coefficients of piecewise polynomial spline function with order n
 function c = mat_coeff_splinen(n)
-  c = zeros(n+1,n+1)
-  a(1) = 1/prod(1:n)
+  c = zeros(n+1,n+1);
+  a(1) = 1/prod(1:n);
   for k=1:n+1
-    a(k+1) = -a(k)*(n+2-k)/k
+    a(k+1) = -a(k)*(n+2-k)/k;
   end
   for k=0:n+1
     for p=0:n
-      xp = prod((n-p+1:n)./(1:p))*k^(n-p)
+      xp = prod((n-p+1:n)./(1:p))*k^(n-p);
       for i=k:n
-	c(i+1,p+1) = c(i+1,p+1)+a(i-k+1)*xp
+	c(i+1,p+1) = c(i+1,p+1)+a(i-k+1)*xp;
       end
     end
   end

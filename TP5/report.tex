@@ -1,0 +1,133 @@
+\documentclass[12pt,a4paper,onecolumn]{article}
+\input{packages}
+\input{macros}
+
+% ------------------------ General informations --------------------------------
+\title{Sub_pixel_image_processing_tp_5}
+\author{Vincent Matthys}
+\graphicspath{{images/}}
+% ------------------------------------------------------------------------------
+
+
+\begin{document}
+
+\begin{tabularx}{0.9\textwidth}{@{} l X r @{} }
+	{\textsc{Master MVA}}               &  & \textsc{TP5}       \\
+	\textsc{Sub-pixel image processing} &  & {ENS Paris Saclay} \\
+\end{tabularx}
+\vspace{1.5cm}
+\begin{center}
+
+	\rule[11pt]{5cm}{0.5pt}
+
+	\textbf{\LARGE \textsc{Compte-rendu TP5}}
+	\vspace{0.5cm}
+
+	Vincent Matthys
+
+	vincent.matthys@ens-paris-saclay.fr
+
+	\rule{5cm}{0.5pt}
+
+	\vspace{1.5cm}
+\end{center}
+%
+\section{Exerice 13}
+\setcounter{subsection}{1}
+\subsection{Zoom d'un facteur 2 d'un signal discret}
+
+Appelant \(\tilde{u}\) l'interpolée linéaire de \(v\), \(\forall n \in \mathbb{Z}\) :
+\begin{equation}
+	\begin{split}
+		v[2n] &=  \tilde{u}(\frac{2n}{2}) = u[n]\\
+		v[2n + 1] &= \tilde{u}(\frac{2n + 1}{2}) = \frac{u[n] + u[n + 1]}{2}\\
+	\end{split}
+\end{equation}
+
+On peut donc exprimer la transformée de Fourier de \(v\) suivant :
+
+\begin{equation}
+	\begin{split}
+		\hat{v}(\xi) &= \sum_{k\in\mathbb{Z}}v[k]e^{-ik\xi} \quad \forall \xi \in \mathbb{R}\\
+		\hat{v}(\xi) &= \sum_{\substack{k = 2n \\n\in\mathbb{Z}}}v[2n]e^{-i2n\xi} + \sum_{\substack{k = 2n + 1 \\n\in\mathbb{Z}}}v[2n + 1]e^{-i(2n+1)\xi}\\
+		\hat{v}(\xi) &= \sum_{\substack{k = 2n \\n\in\mathbb{Z}}}u[n]e^{-in(2\xi)} + \sum_{\substack{k = 2n + 1 \\n\in\mathbb{Z}}}\frac{u[n] + u[n + 1]}{2}e^{-i(2n+1)\xi}\\
+		\hat{v}(\xi) &= \hat{u}(2\xi) + \sum_{n\in\mathbb{Z}}\frac{u[n]}{2}e^{-i(2n+1)\xi} + \sum_{n\in\mathbb{Z}}\frac{u[n + 1]}{2}e^{-i(2n+1)\xi}\\
+		\hat{v}(\xi) &= \hat{u}(2\xi) + \frac{e^{-i\xi}}{2}\sum_{n\in\mathbb{Z}}\frac{u[n]}{2}e^{-in(2\xi)} ++ \frac{e^{i\xi}}{2}\sum_{n\in\mathbb{Z}}\frac{u[n + 1]}{2}e^{-i(n + 1)(2\xi)}\\
+		\hat{v}(\xi) &= \hat{u}(2\xi)\left(1 + \cos\left(\xi\right)\right)
+	\end{split}
+	\label{zoom_lin}
+\end{equation}
+
+D'autre part, l'interpolée \(U\) de Shannon de \(v\), par le théorème de Shannon, s'exprime comme :
+
+\begin{equation}
+	\begin{split}
+		U(x) &= \sum_{k\in\mathbb{Z}} u[k]sinc(x-k) \quad \forall x \in \mathbb{R}\\
+	\end{split}
+	\label{th_shannon}
+\end{equation}
+
+S'ensuit une première opération de zoom par 2, représentée par le signal \(W\) :
+\begin{equation}
+	\begin{split}
+		W(x) &= U(\frac{x}{2}) \quad \forall x \in \mathbb{R}\\
+	\end{split}
+\end{equation}
+
+Dont la transformée de Fourier s'exprime :
+
+\begin{equation}
+	\begin{split}
+		\hat{W}(\xi) &= \int_{\mathbb{R}}U(\frac{x}{2})e^{-ix\xi}dx \quad \forall \xi \in \mathbb{R}\\
+		&= \int_{\mathbb{R}}U(x)e^{-ix(2\xi)}dx\\
+		&= \hat{U}(2\xi)\\
+		&=  \int_{\mathbb{R}}\sum_{k\in\mathbb{Z}} u[k]sinc(x-k) e^{-ix(2\xi)} \quad \text{d'après \eqref{th_shannon}}\\
+		&= \sum_{k\in\mathbb{Z}} u[k] e^{-ik(2\xi)}\int_{\mathbb{R}} sinc(x-k) e^{-i(x-k)(2\xi)}dx\\
+		&= \sum_{k\in\mathbb{Z}} u[k] e^{-ik(2\xi)} \mathds{1}_{[-\pi, \pi]}(2\xi)\\
+		&= \hat{u}(2\xi)\mathds{1}_{[-\pi, \pi]}(2\xi)\\
+	\end{split}
+\end{equation}
+
+On peut alors discrétiser pour obtenir \(\hat{w}\), zoom d'un facteur 2 par interpolée de Shannon :
+
+\begin{equation}
+	\left\{
+	\begin{split}
+		\hat{w}(\xi) &= \hat{u}(2\xi) \quad \forall \xi \in [-\frac{\pi}{2}, \frac{\pi}{2}]\\
+		\hat{w}(\xi) &= 0 \quad \forall \xi \in [-\pi, \pi] \setminus [-\frac{\pi}{2}, \frac{\pi}{2}]\\
+		\hat{w}(\xi) &: 2\pi-\text{periodisée}
+	\end{split}
+	\right.
+	\label{zoom_shannon}
+\end{equation}
+
+Ce qui correspond à concentrer la transformée de Fourier dans le demi-carré, et à mettre à 0 les coefficients tout autour. Ce qui est bien différent du zoom par interpolée linéaire, obtenu en~\eqref{zoom_lin}, où on concentre la transformée de Fourier par 2 mais en modulant par un facteur oscillant entre 1 et 2.
+
+\subsection{Zoom d'un facteur 2 d'une image discrète}
+
+
+
+
+
+\setcounter{section}{16}
+\section{Exerice 17}
+
+Pour l'image \textit{crop\_bouc.pgm}, on constate que tous les zoom par interpolation autre que plus proche voisins donne des phénomènes de repliement
+
+En figure~\refeq{fig_ff_cam} est visualisé le module de la transformée de Fourier de l'image cameraman en entier.
+\begin{figure}[H]
+	\centering
+	\includegraphics[height = 0.4\textheight]{cam_ff}
+	\caption{Transformée de Fourier du cameraman entier}
+	\label{fig_ff_cam}
+\end{figure}
+
+En figure~\refeq{fig_bouc_ff} est visualisé le module de la transformée de Fourier de l'image cameraman en entier. On peut constater
+\begin{figure}[H]
+	\centering
+	\includegraphics[height = 0.4\textheight]{bouc_ff}
+	\caption{Transformée de Fourier du bouc entier}
+	\label{fig_bouc_ff}
+\end{figure}
+
+\end{document}

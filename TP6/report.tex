@@ -1,0 +1,60 @@
+\documentclass[12pt,a4paper,onecolumn]{article}
+\input{packages}
+\input{macros}
+
+% ------------------------ General informations --------------------------------
+\title{Sub_pixel_image_processing_tp_6}
+\author{Vincent Matthys}
+\graphicspath{{images/}}
+% ------------------------------------------------------------------------------
+
+
+\begin{document}
+
+\begin{tabularx}{0.9\textwidth}{@{} l X r @{} }
+	{\textsc{Master MVA}}               &  & \textsc{TP6}       \\
+	\textsc{Sub-pixel image processing} &  & {ENS Paris Saclay} \\
+\end{tabularx}
+\vspace{1.5cm}
+\begin{center}
+
+	\rule[11pt]{5cm}{0.5pt}
+
+	\textbf{\LARGE \textsc{Compte-rendu TP6}}
+	\vspace{0.5cm}
+
+	Vincent Matthys
+
+	vincent.matthys@ens-paris-saclay.fr
+
+	\rule{5cm}{0.5pt}
+
+	\vspace{1.5cm}
+\end{center}
+
+
+\setcounter{section}{14}
+\section{Exerice 15}
+
+
+\setcounter{section}{17}
+\section{Exerice 18}
+
+\subsection{}
+
+On peut réecrire le noyau d'interpolation \(\phi\) suivant :
+
+\begin{equation}
+	\begin{split}
+		\phi(x) &= sinc(x) \times \mathds{1}_{[-p, p]}(x)\\
+		\hat{\phi}(\xi) &= \mathcal{F}\left(sinc(x) \times \mathds{1}_{[-p, p]}(x)\right)\\
+		&= \hat{U}(2\xi)\\
+		&=  \int_{\mathbb{R}}\sum_{k\in\mathbb{Z}} u[k]sinc(x-k) e^{-ix(2\xi)} \quad \text{d'après \eqref{th_shannon}}\\
+		&= \sum_{k\in\mathbb{Z}} u[k] e^{-ik(2\xi)}\int_{\mathbb{R}} sinc(x-k) e^{-i(x-k)(2\xi)}dx\\
+		&= \sum_{k\in\mathbb{Z}} u[k] e^{-ik(2\xi)} \mathds{1}_{[-\pi, \pi]}(2\xi)\\
+		&= \hat{u}(2\xi)\mathds{1}_{[-\pi, \pi]}(2\xi)\\
+	\end{split}
+\end{equation}
+
+
+\end{document}

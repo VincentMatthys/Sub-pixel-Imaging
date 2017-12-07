@@ -41,7 +41,20 @@ for i=1:1:1:10
 end
 
 
-%% Pour des signaux négatifs - cas 2 : itération : gaussiennes +/-
+%% Pour des signaux négatifs - cas 2
+s_neg_3 = -1 * [-4,2,-4]/6;
+
+plot(s_neg_3);
+t_neg_3 = s_neg_3;
+for i=1:1:1:10
+    t_neg_3 = conv(t_neg_3, s_neg_3);
+    figure();
+    plot(t_neg_3);
+    title('t_{neg_3}');
+end
+
+
+%% Pour des signaux négatifs - cas 3 : itération : gaussiennes +/-
 s_neg_2 = -1 * [1,1,1,1,1,1,1,1,1,1,1]/11;
 
 plot(s_neg_2);

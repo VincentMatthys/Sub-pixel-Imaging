@@ -7,3 +7,16 @@ One  of the most important quality factors in images comes from its resolution. 
 2. [Downsample-based multiple description coding and post-processing of decoding](http://ieeexplore.ieee.org/abstract/document/4605276/)
 3. [Optimal image scaling using pixel classification](http://ieeexplore.ieee.org/abstract/document/958257/)
 4. [Image Resolution Enhancement using Inter-Subband Correlation in Wavelet Domain](http://ieeexplore.ieee.org/abstract/document/4378987/)
+
+# Base de données
+
+Construction d'une base de donnée d'images réelles ou de synthèse dont on considère connaître la résolution, c'est-à-dire dont le spectre de Fourier est jugé suffisamment rempli.
+
+[lena](images/lena.pgm)
+
+# Qu'est-ce que la résolution d'une image ?
+
+## Invariance
+Définition des opéartions simples ne changeant pas la résolution effective d'une image.
+
+### Zoom par 0-padding

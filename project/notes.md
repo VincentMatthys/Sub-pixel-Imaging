@@ -12,7 +12,6 @@ One  of the most important quality factors in images comes from its resolution. 
 
 Construction d'une base de donnée d'images réelles ou de synthèse dont on considère connaître la résolution, c'est-à-dire dont le spectre de Fourier est jugé suffisamment rempli.
 
-[lena](images/lena.pgm)
 
 # Qu'est-ce que la résolution d'une image ?
 

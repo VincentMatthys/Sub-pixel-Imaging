@@ -29,3 +29,6 @@ Dans un premier temps, définir ce qu'on entend par réslution effective d'une i
 
 
 ### Objectif (modulable) déterminer quelle est la résolution effective d'une image
+
+## mardi 23 janvie 2018
+(Premier point sur le projet)

@@ -32,3 +32,9 @@ Dans un premier temps, définir ce qu'on entend par réslution effective d'une i
 
 ## mardi 23 janvie 2018
 (Premier point sur le projet)
+
+Il a été rappelé que le but du projet n'était pas forcément d'aboutir à une méthode satisfaisante ni complète pour déterminer la résolution d'une image, mais bien la démarche et l'approfondissement de la méthode choisie.
+
+1. On peut commencer par définir de façon triviale la résolution d'une image comme étant le plus petit rectangle contenant tout le spectre de Fourier de l'image originale. C'est _stable_ par zoom par zéro-padding, mais le bruit blanc gaussien n'aurait pas une résolution nulle.
+2. On modélise le bruit additif gaussien : $u = \tilde{u} + n$, et on prend la transformée de Fourier. Le bruit étant additif, les coefficients de Fourier de u sont la somme de la contribution des coefficients de Fourier de v, l'image débruitée et de n, du bruit. Chaque composant de TF(v) va alors être bruitée par une variable gaussienne.
+  + Considérant le résidu $\int_{Omega_tilda \ Omega}$

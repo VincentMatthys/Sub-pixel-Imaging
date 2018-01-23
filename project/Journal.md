@@ -1,3 +1,8 @@
+---
+export_on_save:
+  markdown: false
+---
+
 # Résolution effective d'une image
 
 Projet dans le cadre du cours d'imagerie sous-pixellique
@@ -36,5 +41,26 @@ Dans un premier temps, définir ce qu'on entend par réslution effective d'une i
 Il a été rappelé que le but du projet n'était pas forcément d'aboutir à une méthode satisfaisante ni complète pour déterminer la résolution d'une image, mais bien la démarche et l'approfondissement de la méthode choisie.
 
 1. On peut commencer par définir de façon triviale la résolution d'une image comme étant le plus petit rectangle contenant tout le spectre de Fourier de l'image originale. C'est _stable_ par zoom par zéro-padding, mais le bruit blanc gaussien n'aurait pas une résolution nulle.
-2. On modélise le bruit additif gaussien : $u = \tilde{u} + n$, et on prend la transformée de Fourier. Le bruit étant additif, les coefficients de Fourier de u sont la somme de la contribution des coefficients de Fourier de v, l'image débruitée et de n, du bruit. Chaque composant de TF(v) va alors être bruitée par une variable gaussienne.
-  + Considérant le résidu $\int_{Omega_tilda \ Omega}$
+2. On modélise le bruit additif gaussien : $u = \tilde{u} + n$, et on prend la transformée de Fourier. Le bruit étant additif, les coefficients de Fourier de $u$ sont la somme de la contribution des coefficients de Fourier de $v$, l'image débruitée et de $n$, du bruit. Chaque composant de $\mathcal{F}(v)$ va alors être bruitée par une variable gaussienne.
+    + Considérant le résidu $$\int_{\Omega \setminus \Omega_r} \left|\mathcal{F}(\tilde{u})\right|^2 $$ on s'intéroge sur la forme du résidu en fonction du _rayon_. On peut espérer que si on a une forme semblable à celle-ci, on puisse déterminer $r_e$ comme la distance du rectangle déterminant la résolution effective de l'image.
+    ![idea_residu](images/idea_residu.png)
+    + Si on suppose que $\mathcal{F}(\tilde{u})$ a pour support $\Omega_0$ alors en probabilité :
+    $$ \mathbb{E}\left[\int_{\Omega \setminus \Omega_r}\left|\mathcal{F}(\tilde{u})\right|^2\right] \sim \chi^2$$
+    + Pour tester ces hypothèses, on peut procéder à la synthèse d'une image _bon candidat_ comme suit :
+      + image sur-échantillonnée
+      + noyau de diffraction (plus petit que $f_c$) (convolution)
+      + bruit
+    + `Il subsiste toujours le risque de se tromper sur la variance du bruit` ?
+3. On risque cependant de ne pas être en mesure de déterminer la résolution d'images présentant ce type de spectre :
+![Limite residu](images/idea_limit_residu.png)
+On est surement amené à reconsidéré l'idée de résidu en découpant l'intégrale sur des petits carrés ?
+
+__Quelques idées en vrac__ :
+1. Si on prend un bruit blanc, qu'on calcule sa transformée de Fourier qui est à symétrie hermitienne, que l'on ne considère que le plan supérieur, on a une collection de variables aléatoire supposées indépendantes (car la transformée de Fourier d'un bruit blanc reste un bruit blanc). On peut alors calculer la matrice de covariance qui est diagonale, sauf pour quelques variables sous contraintes (comme (0,0) : moyenne de l'image dont la variance de la partie imaginaire est nulle, et sur les bords ?)
+2. Qu'est-ce que la résolution effective dans le cas d'une image aliasée ? e.g. GPC (Global Phase Coherence) qui chute brutalement. Est-ce que ma résolution effective chute aussi brutalement ?
+3. Question plus dure : si on s'amuse à dézoomer par interpolation bilinaire en passant de (1000x1000) à (2000x2000), qu'advient-il de la résolution effective ? On peut regarder les lignes de niveaux de l'image, mais ça nous emmène complétement dans une autre direction
+
+__D'aures pistes possibles__ :
+1. On peut regarder l'histogramme du gradient, et les statistiques dessus (statistiques naturelles, cf articles de Simoncelli, Munford)
+2. Le calul de la résolution effective peut permettre de mesurer la limite de diffraction d'un instrument (en se ramenant au problème du calcul de résidu pour déterminer le niveau de bruit / le noyau de diffraction ?)
+3. Cohérence de phase : si on randomise la phase d'un bruit blanc, la TV ne change pas.

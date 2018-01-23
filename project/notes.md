@@ -17,5 +17,28 @@ Construction d'une base de donnée d'images réelles ou de synthèse dont on con
 
 ## Invariance
 Définition des opéartions simples ne changeant pas la résolution effective d'une image.
+  1. Zoom par zéro-paddding
+  2. Changement de contraste affine
 
 ### Zoom par 0-padding
+  Laisse invariant la résolution effective
+
+
+## Définition conversion analogique-digitale
+
+Effective resolution is defined in units of bits with the equation:
+```
+Effective resolution = log2[full-scale input voltage range/ADC RMS noise]
+```
+[source](https://www.maximintegrated.com/en/app-notes/index.mvp/id/5384)
+
+# Statistiques d'évaluation
+
+### Mesure de cohérence de phase
+[Trois mesures:](material/image_quality_assessment)
+  1. Global phase coherence
+  2. Shparness index
+  3. Index S
+On préferera les deux dernières (plus rapides et sans trop de perte d'informations, cf papier Moisan 201X).
+
+MSE
